@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Super Admin — Luxe Eats</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+<body data-page="admin">
+  <div id="nav-mount"></div>
+
+  <header class="page-header container">
+    <div class="eyebrow">Super Admin</div>
+    <h1>Platform Control</h1>
+    <p style="max-width:560px;margin:16px auto 0;">There's no backend by design — this panel shows the platform's current state and exactly how to make changes by editing <code>js/data.js</code>.</p>
+  </header>
+
+  <main class="container section" style="padding-top:0;">
+    <div class="glass" style="padding:26px;margin-bottom:34px;">
+      <h3 style="margin-bottom:14px;">How admin actions work</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;font-size:13px;color:var(--stone);">
+        <div><i class="fa-solid fa-check" style="color:var(--gold-bright);"></i> Approve/Reject — add or omit the restaurant object in <code class="mono">RESTAURANTS</code></div>
+        <div><i class="fa-solid fa-thumbtack" style="color:var(--gold-bright);"></i> Pin/Unpin — toggle <code class="mono">pinned: true/false</code></div>
+        <div><i class="fa-solid fa-star" style="color:var(--gold-bright);"></i> Feature/Unfeature — toggle <code class="mono">featured: true/false</code></div>
+        <div><i class="fa-solid fa-ban" style="color:var(--gold-bright);"></i> Suspend — set <code class="mono">status: "suspended"</code></div>
+        <div><i class="fa-solid fa-trash" style="color:var(--gold-bright);"></i> Remove — delete the object entirely</div>
+        <div><i class="fa-solid fa-pen" style="color:var(--gold-bright);"></i> Edit banners/offers — edit <code class="mono">SITE_CONFIG</code></div>
+      </div>
+      <p style="margin-top:16px;font-size:12px;">Every new restaurant registration arrives as a WhatsApp message — copy the <b>RESTAURANT TEMPLATE</b> comment at the top of <code class="mono">js/data.js</code>, fill it in, and commit.</p>
+    </div>
+
+    <div class="section-head">
+      <div><div class="eyebrow">Live platform state</div><h2>All Restaurants</h2></div>
+    </div>
+    <div class="glass" style="padding:10px 20px;overflow-x:auto;">
+      <table class="admin-table" id="adminTable">
+        <thead>
+          <tr><th>Restaurant</th><th>Status</th><th>Pinned</th><th>Featured</th><th>Rating</th><th>Added</th><th></th></tr>
+        </thead>
+        <tbody id="adminTableBody"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <div id="footer-mount"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/whatsapp.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

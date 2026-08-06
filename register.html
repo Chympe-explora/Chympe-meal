@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Partner With Us — Luxe Eats</title>
+<meta name="description" content="List your restaurant on Luxe Eats. Submit your details and our team will review and onboard you." />
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+<body data-page="register">
+  <div id="nav-mount"></div>
+
+  <header class="page-header container">
+    <div class="eyebrow">Restaurant Partners</div>
+    <h1>List Your Restaurant on Luxe Eats</h1>
+    <p style="max-width:520px;margin:16px auto 0;">Complete the form below. On submit, we'll open WhatsApp with your details pre-filled to send to our team for review.</p>
+  </header>
+
+  <div class="container" style="max-width:820px;padding-bottom:100px;">
+    <form id="registerForm" class="glass" style="padding:34px;">
+      <h3 style="margin-bottom:20px;">Restaurant Details</h3>
+      <div class="form-grid">
+        <div class="field"><label>Restaurant Name</label><input type="text" name="name" required /></div>
+        <div class="field"><label>Owner Name</label><input type="text" name="owner" required /></div>
+        <div class="field"><label>Phone</label><input type="tel" name="phone" required /></div>
+        <div class="field"><label>WhatsApp Number</label><input type="tel" name="whatsapp" required /></div>
+        <div class="field"><label>Email</label><input type="email" name="email" required /></div>
+        <div class="field"><label>Cuisine (comma separated)</label><input type="text" name="cuisine" placeholder="North Indian, Chinese" required /></div>
+        <div class="field full"><label>Address</label><input type="text" name="address" required /></div>
+        <div class="field full"><label>Google Maps Link</label><input type="url" name="mapsLink" placeholder="https://maps.google.com/..." required /></div>
+        <div class="field"><label>Opening Hours</label><input type="time" name="openHours" required /></div>
+        <div class="field"><label>Closing Hours</label><input type="time" name="closeHours" required /></div>
+        <div class="field"><label>UPI Name</label><input type="text" name="upiName" required /></div>
+        <div class="field"><label>UPI ID</label><input type="text" name="upiId" placeholder="name@bank" required /></div>
+        <div class="field full"><label>Description</label><textarea name="description" required></textarea></div>
+      </div>
+
+      <h3 style="margin:30px 0 20px;">Images</h3>
+      <p style="margin-bottom:16px;font-size:12.5px;">Images can't be attached to a WhatsApp text link — select them here, then attach them yourself in the WhatsApp chat that opens after submitting.</p>
+      <div class="form-grid">
+        <div class="field"><label>Logo</label><input type="file" name="logo" accept="image/*" /></div>
+        <div class="field"><label>Cover Image</label><input type="file" name="cover" accept="image/*" /></div>
+        <div class="field"><label>UPI QR Code</label><input type="file" name="qr" accept="image/*" /></div>
+        <div class="field"><label>Gallery (multiple)</label><input type="file" name="gallery" accept="image/*" multiple /></div>
+      </div>
+
+      <button type="submit" class="btn btn-gold btn-block" style="margin-top:30px;">
+        <i class="fa-brands fa-whatsapp"></i> Submit Registration via WhatsApp
+      </button>
+      <p style="text-align:center;margin-top:14px;font-size:12px;">Our Super Admin manually reviews and approves every submission before it goes live.</p>
+    </form>
+  </div>
+
+  <div id="footer-mount"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/whatsapp.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/register.js"></script>
+</body>
+</html>
