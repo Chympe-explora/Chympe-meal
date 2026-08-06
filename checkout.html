@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Checkout — Luxe Eats</title>
+<meta name="robots" content="noindex" />
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+<body data-page="cart">
+  <div id="nav-mount"></div>
+
+  <main class="container cart-layout" id="checkoutRoot" style="align-items:start;"></main>
+
+  <!-- receipt modal shown after order is placed -->
+  <div class="modal-overlay" id="receiptModal">
+    <div class="modal-box" style="max-width:520px;background:transparent;border:none;box-shadow:none;padding:0;">
+      <button class="icon-btn modal-close glass" id="closeReceiptModal" style="background:#0a0a0b;"><i class="fa-solid fa-xmark"></i></button>
+      <div id="receiptMount"></div>
+      <div style="display:flex;gap:12px;margin-top:20px;">
+        <button class="btn btn-gold btn-block" id="downloadPdfBtn"><i class="fa-solid fa-download"></i> Download PDF</button>
+        <button class="btn btn-ghost btn-block" id="printReceiptBtn"><i class="fa-solid fa-print"></i> Print</button>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:12px;">
+        <button class="btn btn-ghost btn-block" id="whatsappRestaurantBtn"><i class="fa-brands fa-whatsapp"></i> Send to Restaurant</button>
+        <button class="btn btn-ghost btn-block" id="whatsappAdminBtn"><i class="fa-brands fa-whatsapp"></i> Notify Admin</button>
+      </div>
+      <a href="index.html" class="btn btn-block" style="margin-top:12px;color:var(--stone);">Back to Home</a>
+    </div>
+  </div>
+
+  <div id="footer-mount"></div>
+  <div class="toast-wrap"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/whatsapp.js"></script>
+  <script src="js/receipt.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/checkout.js"></script>
+</body>
+</html>

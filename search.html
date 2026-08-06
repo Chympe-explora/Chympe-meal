@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Search Restaurants — Luxe Eats</title>
+<meta name="description" content="Search and filter Luxe Eats' curated restaurants by cuisine, rating, and price." />
+<meta name="robots" content="noindex" />
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+<body data-page="restaurants">
+  <div id="nav-mount"></div>
+
+  <header class="page-header container" style="padding-bottom:0;">
+    <div class="search-shell glass" style="margin:0 auto;">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="searchInput" placeholder="Search restaurants, cuisines, or dishes..." />
+    </div>
+  </header>
+
+  <main class="container section">
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-chip active" data-filter="all">All</button>
+      <button class="filter-chip" data-filter="featured">Featured</button>
+      <button class="filter-chip" data-filter="pinned">Pinned</button>
+      <button class="filter-chip" data-filter="new">New</button>
+      <select class="filter-select" id="cuisineFilter"><option value="">Any Cuisine</option></select>
+      <select class="filter-select" id="ratingFilter">
+        <option value="0">Any Rating</option>
+        <option value="4.5">4.5+</option>
+        <option value="4">4.0+</option>
+        <option value="3.5">3.5+</option>
+      </select>
+      <select class="filter-select" id="priceFilter">
+        <option value="9999">Any Price</option>
+        <option value="500">Under ₹500</option>
+        <option value="1000">Under ₹1000</option>
+        <option value="1500">Under ₹1500</option>
+      </select>
+    </div>
+    <div class="rcard-grid" id="resultsGrid"></div>
+    <p id="noResults" style="display:none;text-align:center;padding:60px 0;">No restaurants match your filters.</p>
+  </main>
+
+  <div id="footer-mount"></div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/whatsapp.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/search.js"></script>
+</body>
+</html>

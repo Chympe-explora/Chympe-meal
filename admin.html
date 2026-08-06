@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Super Admin — Luxe Eats</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+<body data-page="admin">
+  <div id="nav-mount"></div>
+
+  <header class="page-header container">
+    <div class="eyebrow">Super Admin</div>
+    <h1>Platform Control</h1>
+    <p id="modeBanner" style="max-width:620px;margin:16px auto 0;"></p>
+  </header>
+
+  <main class="container section" style="padding-top:0;">
+
+    <!-- ===================== LOGIN GATE ===================== -->
+    <div class="glass" id="loginBox" style="padding:34px;max-width:420px;margin:0 auto 34px;">
+      <h3 style="margin-bottom:18px;">Admin Sign In</h3>
+      <form id="loginForm">
+        <div class="field" style="margin-bottom:16px;"><label>Email</label><input type="email" name="email" required /></div>
+        <div class="field" style="margin-bottom:20px;"><label>Password</label><input type="password" name="password" required /></div>
+        <button type="submit" class="btn btn-gold btn-block">Sign In</button>
+        <p id="loginError" style="color:var(--nonveg);font-size:12.5px;margin-top:14px;display:none;"></p>
+      </form>
+      <p id="localModeNote" style="font-size:12px;margin-top:16px;display:none;">
+        No live database is connected yet, so sign-in is unavailable — see <code class="mono">README.md</code> to connect Firebase (~5 minutes, free). Until then you can still browse the dashboard below in local preview mode.
+      </p>
+    </div>
+
+    <!-- ===================== DASHBOARD (hidden until signed in, or always shown in local mode) ===================== -->
+    <div id="dashboard" style="display:none;">
+
+      <div style="display:flex;justify-content:flex-end;margin-bottom:20px;">
+        <button class="btn btn-ghost btn-sm" id="signOutBtn"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out</button>
+      </div>
+
+      <!-- New registrations -->
+      <div class="section-head">
+        <div><div class="eyebrow">Awaiting review</div><h2>New Registrations</h2></div>
+      </div>
+      <div class="glass" style="padding:10px 20px;overflow-x:auto;margin-bottom:40px;">
+        <table class="admin-table" id="regTable">
+          <thead><tr><th>Restaurant</th><th>Owner</th><th>Contact</th><th>Submitted</th><th></th></tr></thead>
+          <tbody id="regTableBody"><tr><td colspan="5" style="text-align:center;">No pending registrations.</td></tr></tbody>
+        </table>
+      </div>
+
+      <!-- All restaurants -->
+      <div class="section-head">
+        <div><div class="eyebrow">Live platform state</div><h2>All Restaurants</h2></div>
+        <button class="btn btn-gold btn-sm" id="addRestaurantBtn"><i class="fa-solid fa-plus"></i> Add Restaurant</button>
+      </div>
+      <div class="glass" style="padding:10px 20px;overflow-x:auto;margin-bottom:40px;">
+        <table class="admin-table" id="adminTable">
+          <thead>
+            <tr><th>Restaurant</th><th>Status</th><th>Pinned</th><th>Featured</th><th>Rating</th><th>Added</th><th style="min-width:290px;">Actions</th></tr>
+          </thead>
+          <tbody id="adminTableBody"></tbody>
+        </table>
+      </div>
+
+      <!-- Categories -->
+      <div class="section-head">
+        <div><div class="eyebrow">Browsable pills</div><h2>Categories</h2></div>
+        <button class="btn btn-ghost btn-sm" id="addCategoryBtn"><i class="fa-solid fa-plus"></i> Add Category</button>
+      </div>
+      <div class="glass" style="padding:22px;margin-bottom:40px;" id="categoriesBox"></div>
+
+      <!-- Site settings -->
+      <div class="section-head">
+        <div><div class="eyebrow">Homepage &amp; platform</div><h2>Site Settings</h2></div>
+      </div>
+      <form class="glass" id="siteConfigForm" style="padding:26px;margin-bottom:60px;">
+        <div class="form-grid">
+          <div class="field"><label>Site Name</label><input name="siteName" /></div>
+          <div class="field"><label>Tagline</label><input name="tagline" /></div>
+          <div class="field"><label>Hero Headline</label><input name="heroHeadline" /></div>
+          <div class="field"><label>Hero Headline Accent</label><input name="heroHeadlineAccent" /></div>
+          <div class="field full"><label>Hero Subtext</label><textarea name="heroSubtext"></textarea></div>
+          <div class="field full"><label>Announcement Bar</label><input name="announcement" /></div>
+          <div class="field"><label>Super Admin WhatsApp (country code, no +)</label><input name="superAdminWhatsApp" /></div>
+          <div class="field"><label>Currency Symbol</label><input name="currency" /></div>
+          <div class="field"><label>Delivery Charge</label><input type="number" name="deliveryCharge" /></div>
+          <div class="field"><label>Free Delivery Above</label><input type="number" name="freeDeliveryAbove" /></div>
+        </div>
+        <button type="submit" class="btn btn-gold" style="margin-top:22px;"><i class="fa-solid fa-floppy-disk"></i> Save Site Settings</button>
+      </form>
+    </div>
+  </main>
+
+  <!-- ===================== RESTAURANT EDIT MODAL ===================== -->
+  <div class="modal-overlay" id="restaurantModal">
+    <div class="modal-box glass" style="max-width:760px;text-align:left;">
+      <button class="icon-btn modal-close" id="restaurantModalClose"><i class="fa-solid fa-xmark"></i></button>
+      <h3 id="restaurantModalTitle" style="margin-bottom:20px;">Add Restaurant</h3>
+      <form id="restaurantForm">
+        <input type="hidden" name="id" />
+        <input type="hidden" name="_regId" />
+        <div class="form-grid">
+          <div class="field"><label>Name</label><input name="name" required /></div>
+          <div class="field"><label>Owner Name</label><input name="ownerName" /></div>
+          <div class="field"><label>Phone</label><input name="phone" /></div>
+          <div class="field"><label>WhatsApp</label><input name="whatsapp" /></div>
+          <div class="field"><label>Cuisine (comma separated)</label><input name="cuisine" /></div>
+          <div class="field"><label>Categories (comma separated ids)</label><input name="categories" placeholder="north-indian, biryani" /></div>
+          <div class="field full"><label>Address</label><input name="address" /></div>
+          <div class="field full"><label>Google Maps Link</label><input name="googleMapsLink" /></div>
+          <div class="field full"><label>Description</label><textarea name="description"></textarea></div>
+          <div class="field"><label>Opening Hours</label><input name="openingHours" placeholder="11:00 AM" /></div>
+          <div class="field"><label>Closing Hours</label><input name="closingHours" placeholder="11:30 PM" /></div>
+          <div class="field"><label>Price for Two</label><input type="number" name="priceForTwo" /></div>
+          <div class="field"><label>Rating</label><input type="number" step="0.1" min="0" max="5" name="rating" /></div>
+          <div class="field"><label>Review Count</label><input type="number" name="reviewCount" /></div>
+          <div class="field"><label>UPI Name</label><input name="upiName" /></div>
+          <div class="field"><label>UPI ID</label><input name="upiId" /></div>
+          <div class="field"><label>Status</label>
+            <select name="status">
+              <option value="approved">Approved</option>
+              <option value="pending">Pending</option>
+              <option value="suspended">Suspended</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Pinned / Featured</label>
+            <div style="display:flex;gap:18px;align-items:center;height:44px;">
+              <label style="display:flex;gap:6px;align-items:center;font-size:13px;color:var(--ivory);"><input type="checkbox" name="pinned" style="width:16px;height:16px;" /> Pinned</label>
+              <label style="display:flex;gap:6px;align-items:center;font-size:13px;color:var(--ivory);"><input type="checkbox" name="featured" style="width:16px;height:16px;" /> Featured</label>
+            </div>
+          </div>
+        </div>
+
+        <h4 style="margin:26px 0 14px;font-size:15px;">Images</h4>
+        <div class="form-grid">
+          <div class="field"><label>Logo</label><input type="file" name="logoFile" accept="image/*" /><span class="mono" id="logoCurrent" style="font-size:11px;color:var(--stone);"></span></div>
+          <div class="field"><label>Cover Image</label><input type="file" name="coverFile" accept="image/*" /><span class="mono" id="coverCurrent" style="font-size:11px;color:var(--stone);"></span></div>
+          <div class="field"><label>UPI QR Code</label><input type="file" name="qrFile" accept="image/*" /><span class="mono" id="qrCurrent" style="font-size:11px;color:var(--stone);"></span></div>
+          <div class="field"><label>Gallery (add more, multiple)</label><input type="file" name="galleryFiles" accept="image/*" multiple /><span class="mono" id="galleryCurrent" style="font-size:11px;color:var(--stone);"></span></div>
+        </div>
+
+        <h4 style="margin:26px 0 14px;font-size:15px;">Menu Items</h4>
+        <div id="menuItemsBox"></div>
+        <button type="button" class="btn btn-ghost btn-sm" id="addMenuItemBtn" style="margin-top:10px;"><i class="fa-solid fa-plus"></i> Add Menu Item</button>
+
+        <div style="display:flex;gap:12px;margin-top:30px;">
+          <button type="button" class="btn btn-ghost btn-block" id="restaurantModalCancel">Cancel</button>
+          <button type="submit" class="btn btn-gold btn-block" id="restaurantSaveBtn">Save Restaurant</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="footer-mount"></div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/whatsapp.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
